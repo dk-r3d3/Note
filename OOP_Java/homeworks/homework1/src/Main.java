@@ -3,90 +3,96 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+    static List<Product> allProducts = new ArrayList<>();
+    static List<Category> allCategories = new ArrayList<>();
+    static List<Basket> allBaskets = new ArrayList<>();
+    static List<User> allUsers = new ArrayList<>();
+
     public static void main(String[] args) {
-        Product telephone1 = new Product("iPhone", 1000, 9.1);
-        Product telephone2 = new Product("Samsung", 900, 9.0);
-        Product telephone3 = new Product("Xiaomi", 500, 8.9);
+        // create Products
+        Product telephone1 = addListAllProducts(new Product("iPhone", 1000, 9.1), allProducts);
+        Product telephone2 = addListAllProducts(new Product("Samsung", 900, 9.0), allProducts);
+        Product telephone3 = addListAllProducts(new Product("Xiaomi", 500, 8.9), allProducts);
+        Product tv1 = addListAllProducts(new Product("YandexTV", 1500, 8.5), allProducts);
+        Product tv2 = addListAllProducts(new Product("Sony", 3000, 9.5), allProducts);
+        Product fridge1 = addListAllProducts(new Product("Haier", 2300, 9.5), allProducts);
 
-        Product tv1 = new Product("YandexTV", 1500, 8.5);
-        Product tv2 = new Product("Sony", 3000, 9.5);
-        Product fridge1 = new Product("Haier", 2300, 9.5);
-
+        // create categories
         Category catPhones = new Category("phones");
         Category catTV = new Category("TV");
         Category catFridges = new Category("Fridges");
 
-        catPhones.array.add(telephone1);
-        catPhones.array.add(telephone2);
-        catPhones.array.add(telephone3);
-        catTV.array.add(tv1);
-        catTV.array.add(tv2);
-        catFridges.array.add(fridge1);
-        List<Category> allProducts = new ArrayList<>();
-        allProducts.add(catTV);
-        allProducts.add(catPhones);
-        allProducts.add(catFridges);
-        System.out.println("Список продуктов магазина: ");
-        for (Category category: allProducts) {
-            for (Product cat: category.array) {
-                System.out.println(cat);
-            }
-        }
-        System.out.println();
-//        System.out.println(catPhones.array);
-//        System.out.println(catTV.array);
-//        System.out.println(catFridges.array);
+        // add product in category
+        addCategory(telephone1, catPhones.getArrayProducts());
+        addCategory(telephone2, catPhones.getArrayProducts());
+        addCategory(telephone3, catPhones.getArrayProducts());
+        addCategory(tv1, catTV.getArrayProducts());
+        addCategory(tv2, catTV.getArrayProducts());
+        addCategory(fridge1, catFridges.getArrayProducts());
 
+        // get list all product
+        System.out.println(getRes("All products in shop: ", allProducts));
+
+        allCategories.add(catPhones);
+        allCategories.add(catTV);
+        allCategories.add(catFridges);
+
+        // get list all categories
+        System.out.println(getRes("Products by category: ", allCategories));
+
+        // create baskets
         Basket basket1 = new Basket();
         Basket basket2 = new Basket();
         Basket basket3 = new Basket();
         Basket basket4 = new Basket();
-        User user1 = new User("Ivan", "password", basket1);
-        User user2 = new User("Dmitry", "password", basket2);
-        User user3 = new User("Elena", "password", basket3);
-        User user4 = new User("Sergey", "password", basket4);
 
-        basket1.productsBuy.add(telephone1);
-        basket1.productsBuy.add(fridge1);
-        catPhones.array.remove(telephone1);
-        catFridges.array.remove(fridge1);
-        basket2.productsBuy.add(telephone2);
-        catPhones.array.remove(telephone2);
-        basket4.productsBuy.add(tv1);
-        catTV.array.remove(tv1);
+        // create users
+        User user1 = addListAllUsers(new User("Ivan", "password", basket1), allUsers);
+        User user2 = addListAllUsers(new User("Dmitry", "password", basket2), allUsers);
+        User user3 = addListAllUsers(new User("Elena", "password", basket3), allUsers);
+        User user4 = addListAllUsers(new User("Sergey", "password", basket4), allUsers);
 
-        List<Basket> allBaskets = new ArrayList<>();
+        // filling baskets
+        basket1.getProductsBuy().add(telephone1);
+        allProducts.remove(telephone1);
+        basket1.getProductsBuy().add(fridge1);
+        allProducts.remove(fridge1);
         allBaskets.add(basket1);
+
+        basket2.getProductsBuy().add(telephone2);
+        allProducts.remove(telephone2);
         allBaskets.add(basket2);
+
+        basket3.getProductsBuy().add(tv1);
+        allProducts.remove(tv1);
         allBaskets.add(basket3);
-        allBaskets.add(basket4);
 
-        System.out.println("Список купленных товаров: ");
-        for (Basket baskets: allBaskets) {
-            for (Product  bask: baskets.productsBuy) {
-                System.out.println(bask);
-            }
+        // get list all bascets
+        System.out.println(getRes("Product in baskets: ", allBaskets));
+        System.out.println(getRes("List of remaining products: ", allProducts));
+        System.out.println(getRes("All users purchases: ", allUsers));
+    }
+
+    public static Product addListAllProducts(Product product, List<Product> allProducts) {
+        allProducts.add(product);
+        return product;
+    }
+
+    public static Category addCategory(Product product, List<Product> category) {
+        category.add(product);
+        return null;
+    }
+
+    public static User addListAllUsers(User user, List<User> users) {
+        users.add(user);
+        return null;
+    }
+
+    public static String getRes(String string, List array) {
+        System.out.println(string);
+        for (Object res : array) {
+            System.out.println(res);
         }
-        System.out.println();
-        System.out.println("Список оставшихся товаров: ");
-        for (Category prod: allProducts){
-            for (Product pro: prod.array) {
-                System.out.println(pro);
-            }
-//            System.out.println(prod);
-        }
-
-
-//        System.out.println(user1);
-//        System.out.println(user2);
-//        System.out.println(user3);
-//        System.out.println(catPhones.array);
-
-
-//
-//
-//        System.out.println(basket);
-//        System.out.println(catPhones.array);
-//        User user1 = new User("login", "passw", )
+        return "_____________________________________";
     }
 }

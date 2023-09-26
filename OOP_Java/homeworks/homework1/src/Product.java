@@ -1,7 +1,7 @@
 public class Product {
-    String name;
-    int price;
-    Double rating;
+    private String name;
+    private int price;
+    private Double rating;
 
     public Product(String name, int price, Double rating) {
         this.name = name;
@@ -10,7 +10,19 @@ public class Product {
     }
     @Override
     public String toString(){
-        return  "The product: " + name + " is price - "
+        return  name + " is price - "
                 + price + "$ with a rating of " + rating;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public Double getRating() {
+        return rating;
     }
 }

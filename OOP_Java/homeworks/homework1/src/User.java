@@ -1,7 +1,7 @@
 public class User {
-    String login;
-    String password;
-    Basket basket;
+    private String login;
+    private String password;
+    private Basket basket;
 
     public User(String login, String password, Basket basket) {
         this.login = login;
@@ -11,6 +11,18 @@ public class User {
 
     @Override
     public String toString() {
-        return "User with name " + login + " have basket: " + basket;
+        return "User with name " + login + " made purchases: " + basket.getProductsBuy();
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Basket getBasket() {
+        return basket;
     }
 }
